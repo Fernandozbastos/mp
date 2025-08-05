@@ -1,3 +1,4 @@
+
 from sqlalchemy import Column, Integer, String, DateTime, func
 
 from app.db.base import Base
