@@ -28,5 +28,13 @@ app/
    ```
 3. Launch the Celery worker:
    ```bash
+   # Ensure broker and backend URLs are configured
+   export CELERY_BROKER_URL=redis://localhost:6379/0
+   export CELERY_RESULT_BACKEND=redis://localhost:6379/0
+
    celery -A app.tasks.worker.celery_app worker --loglevel=info
+   ```
+4. (Optional) Start Celery beat for periodic tasks:
+   ```bash
+   celery -A app.tasks.worker.celery_app beat --loglevel=info
    ```
