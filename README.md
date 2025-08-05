@@ -30,3 +30,16 @@ app/
    ```bash
    celery -A app.tasks.worker.celery_app worker --loglevel=info
    ```
+
+## Database migrations
+
+Alembic manages schema changes:
+
+1. Generate a migration:
+   ```bash
+   alembic revision --autogenerate -m "message"
+   ```
+2. Apply migrations:
+   ```bash
+   alembic upgrade head
+   ```
