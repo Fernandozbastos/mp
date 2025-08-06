@@ -10,7 +10,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..db.session import async_session
-from ..models import Item
 from .schemas.item import ItemCreate, ItemRead, ItemUpdate
 
 
@@ -84,6 +83,8 @@ async def create_item(
     item: ItemCreate, session: AsyncSession = Depends(get_session)
 ) -> ItemRead:
     """Create a new item."""
+    from ..models import Item
+
     db_item = Item(**item.dict())
     session.add(db_item)
     await session.commit()
@@ -96,6 +97,8 @@ async def get_item(
     item_id: int, session: AsyncSession = Depends(get_session)
 ) -> ItemRead:
     """Retrieve a single item by ID."""
+    from ..models import Item
+
     result = await session.execute(select(Item).where(Item.id == item_id))
     db_item = result.scalar_one_or_none()
     if db_item is None:
@@ -108,6 +111,8 @@ async def update_item(
     item_id: int, item: ItemUpdate, session: AsyncSession = Depends(get_session)
 ) -> ItemRead:
     """Update an existing item."""
+    from ..models import Item
+
     result = await session.execute(select(Item).where(Item.id == item_id))
     db_item = result.scalar_one_or_none()
     if db_item is None:
@@ -124,6 +129,8 @@ async def delete_item(
     item_id: int, session: AsyncSession = Depends(get_session)
 ) -> dict[str, bool]:
     """Delete an item by ID."""
+    from ..models import Item
+
     result = await session.execute(select(Item).where(Item.id == item_id))
     db_item = result.scalar_one_or_none()
     if db_item is None:
