@@ -50,3 +50,9 @@ celery_app.conf.beat_schedule = {
 }
 
 celery_app.conf.timezone = "UTC"
+
+
+@celery_app.task
+def example_task() -> str:
+    """Simple example task used for testing."""
+    return "task completed"
